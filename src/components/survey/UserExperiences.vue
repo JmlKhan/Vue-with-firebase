@@ -7,7 +7,11 @@
           >Load Submitted Experiences</base-button
         >
       </div>
-      <ul>
+      <p v-if="isLoading">Loading...</p>
+      <p v-else-if="!isLoading && (!results || results.length === 0)">
+        Nothis is found
+      </p>
+      <ul v-else-if="!isLoading && results && results.length > 0">
         <survey-result
           v-for="result in results"
           :key="result.id"
@@ -29,6 +33,7 @@ export default {
   data() {
     return {
       results: [],
+      isLoading: true,
     };
   },
   methods: {
@@ -56,8 +61,9 @@ export default {
     // },
 
     async loadExperience() {
+      this.isLoading = false;
       const res = await fetch(
-        'https://vue-http-demo-f70f3-default-rtdb.firebaseio.com/survey.json'
+        'https://vue-http-demo-f70f3-default-rtdb.firebaseio.com/surveys.json'
       );
       const data = await res.json();
       const results = [];
@@ -71,6 +77,9 @@ export default {
 
       this.results = results;
     },
+  },
+  mounted() {
+    this.loadExperience();
   },
 };
 </script>
