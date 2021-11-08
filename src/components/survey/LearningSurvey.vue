@@ -89,7 +89,7 @@ export default {
       // );
 
       axios.post(
-        'https://vue-http-demo-f70f3-default-rtdb.firebaseio.com/survey.json',
+        'https://vue-http-demo-f70f3-default-rtdb.firebaseio.com/surveys.json',
         {
           name: this.enteredName,
           rating: this.chosenRating,
